@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import MySecondComponent from './mySecondComponent';
+import {Link} from "react-router-dom";
+
 
 class MyFirstComponent extends Component {
+
   constructor(props){
       super(props);
       this.state={
@@ -9,6 +12,7 @@ class MyFirstComponent extends Component {
           address:"",
           number:""
       };
+      console.log(this.props);
       //this.handleChange=this.handleChange.bind(this);
   }
 
@@ -43,6 +47,13 @@ class MyFirstComponent extends Component {
                     callFromSecondComponent={this.callFromSecondComponent}
                 />
 
+                <Link
+                    to={{
+                        pathname: "/clock",
+                        search: "?sort=name",
+                        hash: "#the-hash",
+                    }}
+                ><button>Go to Digital Clock</button></Link>
             </div>
 
         );

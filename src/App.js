@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
 import './App.css';
-import MyFirstComponent from './component/myFirstComponent';
-import MyThirdComponent from "./component/myThirdComponent";
-import DigitalClock from "./digitalClock";
+import Routes from "./routes";
 
 export default class App extends Component {
 
     render() {
         return (
-            <div className="headerName">
-                <MyFirstComponent/>
+            <div>
+                <Routes/>
             </div>
         );
     }
