@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from "react-router-dom";
 
 class DigitalClock extends Component {
     constructor(props){
@@ -11,7 +12,6 @@ class DigitalClock extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.location);
         let self=this;
         this.timer=setInterval(function () {
             self.setState({
@@ -31,6 +31,7 @@ class DigitalClock extends Component {
     render() {
         return (
             <div style={{position:'relative',height:'99vh'}}>
+                {this.props.location.state.name}
                 <div style={{display:'flex',
                     position:'absolute',top:'30%',left:'30%'}}>
                     <div style={{padding:20}}>{this.state.date.getHours()}</div>
@@ -43,4 +44,4 @@ class DigitalClock extends Component {
     }
 }
 
-export default DigitalClock;
+export default withRouter(DigitalClock);

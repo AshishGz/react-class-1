@@ -42,7 +42,8 @@ class ApiCall extends Component {
     };
     handleChange=(event)=>{
         let data=this.state.covidData.filter(function (val) {
-            if(val.country.toLowerCase().indexOf(event.target.value.toLowerCase())!=-1){
+            if(val.country.toLowerCase().
+            indexOf(event.target.value.toLowerCase())!=-1){
                 return val;
             }
         });

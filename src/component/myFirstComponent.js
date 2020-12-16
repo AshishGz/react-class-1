@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import MySecondComponent from './mySecondComponent';
 import {Link} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 
 class MyFirstComponent extends Component {
@@ -54,11 +55,22 @@ class MyFirstComponent extends Component {
                         hash: "#the-hash",
                     }}
                 ><button>Go to Digital Clock</button></Link>
+                <button
+                onClick={()=>
+                this.props.history.push('/clock',
+                    {name:this.state.username}
+                    )
+                }
+                >Change Route Prgramatically</button>
+                <br/>
+                <button onClick={()=>
+                this.props.history.push('dynamicRoute/book/213126543718_e1ecs1')
+                }>Dynamic Route</button>
             </div>
 
         );
     }
 }
 
-export default MyFirstComponent;
+export default withRouter(MyFirstComponent);
 

@@ -8,6 +8,7 @@ import {
 import MyFirstComponent from "./component/myFirstComponent";
 import DigitalClock from "./digitalClock";
 import ApiCall from "./apiCall";
+import MySecondComponent from "./component/mySecondComponent";
 
 class Routes extends Component {
     render() {
@@ -23,6 +24,9 @@ class Routes extends Component {
                             </Route>
                             <Route path="/api-call" exact>
                                 <ApiCall/>
+                            </Route>
+                            <Route path="/dynamicRoute/:id/:value" exact>
+                                <MySecondComponent/>
                             </Route>
                         </Switch>
                 </Router>
