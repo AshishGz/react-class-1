@@ -10,6 +10,7 @@ import DigitalClock from "./digitalClock";
 import ApiCall from "./apiCall";
 import MySecondComponent from "./component/mySecondComponent";
 import MaterialHome from "./material-example/material-home";
+import TabUi from "./material-example/tabUI";
 
 class Routes extends Component {
     render() {
@@ -31,6 +32,9 @@ class Routes extends Component {
                             </Route>
                             <Route path="/dynamicRoute/:id/:value" exact>
                                 <MySecondComponent/>
+                            </Route>
+                            <Route path="/tab" exact>
+                                <TabUi/>
                             </Route>
                         </Switch>
                 </Router>
