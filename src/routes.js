@@ -11,6 +11,7 @@ import ApiCall from "./apiCall";
 import MySecondComponent from "./component/mySecondComponent";
 import MaterialHome from "./material-example/material-home";
 import TabUi from "./material-example/tabUI";
+import WhetherHome from "./wheatherInfo/whetherHome";
 
 class Routes extends Component {
     render() {
@@ -35,6 +36,9 @@ class Routes extends Component {
                             </Route>
                             <Route path="/tab" exact>
                                 <TabUi/>
+                            </Route>
+                            <Route path="/whether" exact>
+                                <WhetherHome/>
                             </Route>
                         </Switch>
                 </Router>

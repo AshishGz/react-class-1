@@ -34,7 +34,7 @@ class Header extends Component {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6">
-                            Material Example
+                            Whether Data
                         </Typography>
                     </Toolbar>
                 </AppBar>
