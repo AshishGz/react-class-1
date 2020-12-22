@@ -19,6 +19,7 @@ import UserProfile from "./react-hook/userProfile";
 import EffectHookExample from "./react-hook/effectHook";
 import TimerApp from "./timer/timerApp";
 import ApiCallExampleHook from "./react-hook/api-call-example";
+import PaginationPageNumber from "./pagination/pagination_pagenumber";
 
 class Routes extends Component {
     render() {
@@ -67,6 +68,9 @@ class Routes extends Component {
                             </Route>
                             <Route path="/hook-api-call" exact>
                                 <ApiCallExampleHook/>
+                            </Route>
+                            <Route path="/pageNumber" exact>
+                                <PaginationPageNumber/>
                             </Route>
                         </Switch>
                 </Router>
