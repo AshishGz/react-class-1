@@ -20,6 +20,7 @@ import EffectHookExample from "./react-hook/effectHook";
 import TimerApp from "./timer/timerApp";
 import ApiCallExampleHook from "./react-hook/api-call-example";
 import PaginationPageNumber from "./pagination/pagination_pagenumber";
+import PaginationLoadMore from "./pagination/pagination_loadmore";
 
 class Routes extends Component {
     render() {
@@ -71,6 +72,9 @@ class Routes extends Component {
                             </Route>
                             <Route path="/pageNumber" exact>
                                 <PaginationPageNumber/>
+                            </Route>
+                            <Route path="/loadmore" exact>
+                                <PaginationLoadMore/>
                             </Route>
                         </Switch>
                 </Router>
