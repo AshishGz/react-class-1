@@ -6,7 +6,7 @@ import * as React from "react";
 export const theme = createMuiTheme({
     palette: {
         primary: {
-            main: green[200],
+            main: green[500],
         },
         secondary: {
             main: purple[500],
