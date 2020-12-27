@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.my-msg{
+  background: #12f57e;
+  color:#fff;
+  padding: 10px;
+  border-radius: 10px;
+  float: right;
+  margin-top: 10px;
+}
+.other-msg{
+  background: #4379f9;
+  color:#fff;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+
+}

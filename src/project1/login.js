@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {loginWithSocialAccount, signin, signup} from "./loginManager";
 import {useHistory} from "react-router-dom";
+import {registerUser} from "../chat-app/user-managemant";
 
 function Copyright() {
     return (
@@ -71,6 +72,12 @@ export default function Login() {
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
 
+    const register=(userInfo)=>{
+        registerUser(userInfo).then(function (response) {
+           history.push('/');
+        });
+    };
+
 
     const handleChange=(event)=>{
       if(event.target.id=='email'){
@@ -86,8 +93,8 @@ export default function Login() {
         setIsLogin(true);
         loginWithSocialAccount('google').then(function (response) {
             console.log(response);
+            register(response.user);
             setIsLogin(false);
-            history.push('/chat');
         }).catch(function () {
             setIsLogin(false);
         });
@@ -108,9 +115,7 @@ export default function Login() {
         setIsLogin(true);
         if(email!='' && password!='') {
             signin(email, password).then(function (res) {
-                console.log(res);
-                setIsLogin(false);
-                history.push('/chat');
+                register(res.user);
             }).catch(function () {
                 setIsLogin(false);
             });

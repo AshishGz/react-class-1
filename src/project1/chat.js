@@ -5,12 +5,16 @@ import CircularProgress from "@material-ui/core/CircularProgress/CircularProgres
 import Grid from "@material-ui/core/Grid/Grid";
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button/Button";
+import Card from "@material-ui/core/Card/Card";
+import {useParams} from 'react-router-dom';
 
 export default function Chat() {
     const [user,setUSer]=useState();
     const [gettingUser,setGettingUser]=useState(true);
     const [msg,setMsg]=useState();
     const [receivedMsg,setReceivedMsg]=useState([]);
+
+    let params=useParams();
 
 
     useEffect(()=>{
@@ -33,9 +37,8 @@ export default function Chat() {
     };
 
     const onWriteMsgToDb= async () => {
-        console.log(user)
         try {
-            await firebase.database().ref("chat").push({
+            await firebase.database().ref(params.chatId).push({
                 content: msg,
                 timestamp: Date.now(),
                 uid: user.id
@@ -47,7 +50,7 @@ export default function Chat() {
 
     const getMsg=()=>{
         try {
-            firebase.database().ref("chat").on("value", snapshot => {
+            firebase.database().ref(params.chatId).on("value", snapshot => {
                 let chats = [];
                 snapshot.forEach((snap) => {
                     chats.push(snap.val());
@@ -62,16 +65,18 @@ export default function Chat() {
     const onSendMsg=()=>{
         onWriteMsgToDb().finally(function (res) {
             console.log(res);
+        }).catch(function (error) {
+            console.log(error);
         })
     };
 
     return (
         <div>
             {gettingUser?<CircularProgress/>:
-                <div>
-            <h1>Welcome {user.email}</h1>
+                <div style={{margin:20}}>
+                    <Card style={{padding:20}}>
                     <div>
-                        <div>
+                        <div className={receivedMsg.uid==user.id?"my-msg":"other-msg"}>
                             {receivedMsg.length?
                             receivedMsg.map((item)=>
                             <p>{item.content}</p>
@@ -107,6 +112,7 @@ export default function Chat() {
                             </Grid>
                         </Grid>
                     </div>
+                    </Card>
                 </div>
 
             }
