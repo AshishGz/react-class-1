@@ -6,15 +6,20 @@ import Grid from "@material-ui/core/Grid/Grid";
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button/Button";
 import Card from "@material-ui/core/Card/Card";
-import {useParams} from 'react-router-dom';
+import {useParams,useHistory} from 'react-router-dom';
+import CardHeader from "@material-ui/core/CardHeader/CardHeader";
+import Avatar from "@material-ui/core/Avatar/Avatar";
 
 export default function Chat() {
     const [user,setUSer]=useState();
     const [gettingUser,setGettingUser]=useState(true);
     const [msg,setMsg]=useState();
     const [receivedMsg,setReceivedMsg]=useState([]);
-
+    const [roomInfo,setRoomInfo]=useState()
+;
     let params=useParams();
+
+    let history=useHistory();
 
 
     useEffect(()=>{
@@ -30,9 +35,12 @@ export default function Chat() {
 
         });
         getMsg();
+        setRoomInfo(history.location.state.room);
     },[true]);
 
     const handleChange=(event)=>{
+        console.log(event.target.value);
+        console.log(event.key);
         setMsg(event.target.value);
     };
 
@@ -41,7 +49,8 @@ export default function Chat() {
             await firebase.database().ref(params.chatId).push({
                 content: msg,
                 timestamp: Date.now(),
-                uid: user.id
+                uid: user.id,
+                email:user.email
             });
         } catch (error) {
             console.log(error);
@@ -55,6 +64,7 @@ export default function Chat() {
                 snapshot.forEach((snap) => {
                     chats.push(snap.val());
                 });
+                console.log(chats);
                 setReceivedMsg(chats);
             });
         } catch (error) {
@@ -64,7 +74,7 @@ export default function Chat() {
 
     const onSendMsg=()=>{
         onWriteMsgToDb().finally(function (res) {
-            console.log(res);
+            setMsg('');
         }).catch(function (error) {
             console.log(error);
         })
@@ -74,12 +84,29 @@ export default function Chat() {
         <div>
             {gettingUser?<CircularProgress/>:
                 <div style={{margin:20}}>
+                    <Card style={{marginBottom:20}}>
+                        <CardHeader
+                            avatar={
+                                <Avatar aria-label="recipe" src={roomInfo.room_image}>
+                                    R
+                                </Avatar>
+                            }
+                            title={roomInfo.room_name}
+                            subheader={roomInfo.room_desc}
+                        />
+                    </Card>
                     <Card style={{padding:20}}>
                     <div>
-                        <div className={receivedMsg.uid==user.id?"my-msg":"other-msg"}>
+                        <div>
                             {receivedMsg.length?
                             receivedMsg.map((item)=>
-                            <p>{item.content}</p>
+                                <div>
+                                    <p className={item.uid==user.id?"my-msg-time":"other-msg-time"} >{item.email}</p>
+                                    <p className={item.uid==user.id?"my-msg":"other-msg"}>
+                           {item.content}
+                                </p>
+                                    <p className={item.uid==user.id?"my-msg-time":"other-msg-time"} >{new Date(item.timestamp).toTimeString()}</p>
+                                </div>
                             ):''
                             }
                         </div>
@@ -95,6 +122,11 @@ export default function Chat() {
                                         helperText="Please Enter Message"
                                         error={false}
                                         disabled={false}
+                                        onKeyPress={(event=>{
+                                            if(event.key=='Enter'){
+                                                onSendMsg()
+;                                            }
+                                        })}
                                         onChange={handleChange}
                                         fullWidth={true}
                                     />

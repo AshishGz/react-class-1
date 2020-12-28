@@ -21,17 +21,26 @@ export async function getUserList() {
         .collection(REGISTER_USER).get();
     return snapshot.docs.map(doc => doc);
 }
+export async function getChatRoomList() {
+    const snapshot = await firebase.firestore()
+        .collection(CHAT_ROOM).get();
+    return snapshot.docs.map(doc => doc);
+}
 
-export async function createChatRoom(chat_room) {
-    await firebase.firestore().collection(CHAT_ROOM).add({
-        room_name:chat_room.name,
-        room_id:chat_room.id,
-    }).then(function (response) {
+export  function createChatRoom(chat_room) {
+   return new Promise(async function (resolve, reject) {
+       await firebase.firestore().collection(CHAT_ROOM).add({
+           room_name: chat_room.name,
+           room_id: chat_room.id,
+           room_image: chat_room.room_image,
+           room_desc: chat_room.room_desc
+       }).then(function (response) {
+            resolve(response);
+       }).catch(function (error) {
+          reject(error);
 
+       });
+   })
 
-
-    }).catch(function (error) {
-
-    })
 
 }
