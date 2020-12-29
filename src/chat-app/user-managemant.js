@@ -33,7 +33,8 @@ export  function createChatRoom(chat_room) {
            room_name: chat_room.name,
            room_id: chat_room.id,
            room_image: chat_room.room_image,
-           room_desc: chat_room.room_desc
+           room_desc: chat_room.room_desc,
+           room_theme:chat_room.room_theme
        }).then(function (response) {
             resolve(response);
        }).catch(function (error) {
@@ -41,6 +42,25 @@ export  function createChatRoom(chat_room) {
 
        });
    })
+
+
+}
+
+export  function updateChatRoom(chat_room,id) {
+    return new Promise(async function (resolve, reject) {
+        await firebase.firestore().collection(CHAT_ROOM).doc('/'+id).update({
+            room_name: chat_room.name,
+            room_id: chat_room.id,
+            room_image: chat_room.room_image,
+            room_desc: chat_room.room_desc,
+            room_theme:chat_room.room_theme
+        }).then(function (response) {
+            resolve(response);
+        }).catch(function (error) {
+            reject(error);
+
+        });
+    })
 
 
 }
